@@ -75,6 +75,7 @@ class HighchartsWidget extends CWidget
     public $htmlOptions = array();
     public $setupOptions = array();
     public $scripts = array();
+	public $theme = null;
 
     /**
      * Renders the widget.
@@ -104,6 +105,9 @@ class HighchartsWidget extends CWidget
 
         $jsOptions = CJavaScript::encode($this->options);
         $setupOptions = CJavaScript::encode($this->setupOptions);
+	    if(!is_null($this->theme)) {
+		    $this->scripts[] = 'themes/' . $this->theme;
+	    }
         $this->registerScripts(__CLASS__ . '#' . $id, "Highcharts.setOptions($setupOptions); var chart = new Highcharts.{$this->_constr}($jsOptions);");
     }
 
